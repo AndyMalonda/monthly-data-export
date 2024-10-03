@@ -13,9 +13,10 @@ csv_header="Set;your;csv;header;here"
 # ./monthly_data_export.sh
 
 # Environment variables (set these in your environment or in a .env file)
-export DB_NAME="${DB_NAME:-default_DB}"
+export FILE_NAME = "${FILE_NAME:-file_name}"
 export EXPORTED_DATA_FOLDER="${EXPORTED_DATA_FOLDER:-/path/to/exported_data/}"
 export REPORT_DESTINATION_FOLDER="${REPORT_DESTINATION_FOLDER:-/path/to/Destination/}"
+export DB_NAME="${DB_NAME:-default_DB}"
 export DB_USER="${DB_USER:-your_db_user}"
 export DB_PASSWORD="${DB_PASSWORD:-your_db_password}"
 export DB_HOST="${DB_HOST:-your_db_host}"
@@ -36,7 +37,7 @@ first_shift_start_time="00:00:00"
 last_shift_end_time="23:59:59"
 
 # ex: DB_2024-02-01_2024-02-29
-csv_file_name="${DB_NAME}_${first_day}_${last_day}"
+csv_file_name="${FILE_NAME}_${first_day}_${last_day}"
 
 start_date="${first_day} ${first_shift_start_time}"
 end_date="${last_day} ${last_shift_end_time}"

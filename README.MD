@@ -1,5 +1,8 @@
 # Monthly Data Export Script
 
+> :warning: **Warning**:
+> I used this script in a very specific environment and I changed a lot code to make it generic and to hide sensitive information. I didn't test it in a real environment. So you will to strongly adapt it to your environment and needs but I hope it helps you.
+
 This script is designed to export data from a MySQL database to a CSV file based on a date range. The script loads environment variables from a [`.env`] file, constructs a SQL query to fetch data between the first and last day of the previous month, and saves the results to a CSV file.
 
 I used to run this script on a Docker environment, but you can run it on any Linux environment with MySQL installed.
