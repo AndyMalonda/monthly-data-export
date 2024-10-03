@@ -3,9 +3,15 @@
 > :warning: **Warning**:
 > I used this script in a very specific environment and I changed a lot code to make it generic and to hide sensitive information. I didn't test it in a real environment. So you will to strongly adapt it to your environment and needs but I hope it helps you.
 
-This script is designed to export data from a MySQL database to a CSV file based on a date range. The script loads environment variables from a [`.env`] file, constructs a SQL query to fetch data between the first and last day of the previous month, and saves the results to a CSV file.
+This script is designed to export data from a MySQL database to a CSV file based on a date range. By default, it exports data from the previous month but you can of course change it.
 
-I used to run this script on a Docker environment, but you can run it on any Linux environment with MySQL installed.
+The script loads environment variables from a [`.env`] file, constructs a SQL query to fetch data between the first and last day of the previous month, and saves the results to a CSV file.
+
+The script also handles errors and logs the output to a log file. It creates the export directory if it does not exist and moves the CSV file to the destination folder.
+
+I set up a cron job to run this script at midnight on the first day of each month to export data from the previous month.
+
+I used to run this script on a **Docker** environment, but you can run it on any Linux environment with MySQL installed.
 
 ## Prerequisites
 
@@ -18,9 +24,10 @@ I used to run this script on a Docker environment, but you can run it on any Lin
 The script uses the following environment variables, which should be defined in a [`.env`] file in the same directory as the script:
 
 ```env
-DB_NAME=your_db_name
+FILE_NAME=your_file_name
 EXPORTED_DATA_FOLDER=/path/to/exported_data/
 REPORT_DESTINATION_FOLDER=/path/to/Destination/
+DB_NAME=your_db_name
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 DB_HOST=your_db_host
@@ -81,9 +88,9 @@ To execute the script automatically each month, you can set up a cron job. Hereâ
 3. **Set Default Environment Variables**: The script sets default values for environment variables if they are not already set.
 
     ```sh
-    export DB_NAME="${DB_NAME:-default_DB}"
     export EXPORTED_DATA_FOLDER="${EXPORTED_DATA_FOLDER:-/path/to/exported_data/}"
     export REPORT_DESTINATION_FOLDER="${REPORT_DESTINATION_FOLDER:-/path/to/Destination/}"
+    export DB_NAME="${DB_NAME:-default_DB}"
     export DB_USER="${DB_USER:-your_db_user}"
     export DB_PASSWORD="${DB_PASSWORD:-your_db_password}"
     export DB_HOST="${DB_HOST:-your_db_host}"
@@ -110,7 +117,7 @@ To execute the script automatically each month, you can set up a cron job. Hereâ
 6. **Construct CSV File Name**: The script constructs the CSV file name based on the date range.
 
     ```sh
-    csv_file_name="${DB_NAME}_${first_day}_${last_day}"
+    csv_file_name="${FILE_NAME}_${first_day}_${last_day}"
     ```
 
 7. **Define SQL Query**: The script defines the SQL query to fetch data between the calculated date range.
